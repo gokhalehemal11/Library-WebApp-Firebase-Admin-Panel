@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
+      var config = {
+        apiKey: "AIzaSyC5KYHGWCDaEL3W1o-Uk3Jt4vJTTvBulk8",
+        authDomain: "btapp-2a08c.firebaseapp.com",
+        databaseURL: "https://btapp-2a08c.firebaseio.com",
+        projectId: "btapp-2a08c",
+        storageBucket: "btapp-2a08c.appspot.com",
+        messagingSenderId: "202689453275"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/om.css" />
+  </head>
+
+  <body>
+    <figure class="highcharts-figure">
+      <div id="container"></div>
+      <p class="highcharts-description">
+        Chart showing total number of students present in the library in real
+        time.
+      </p>
+    </figure>
+    <script src="js/om.js"></script>
+  </body>
+</html>

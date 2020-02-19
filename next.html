@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Admin Add Book</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/bootstrap/css/bootstrap.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+    />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css" />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/css-hamburgers/hamburgers.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/animsition/css/animsition.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/select2/select2.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/daterangepicker/daterangepicker.css"
+    />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util2.css" />
+    <link rel="stylesheet" type="text/css" href="css/main2.css" />
+    <!--===============================================================================================-->
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+  </head>
+  <body>
+    <div id="container" style=" display: none" class="card">
+      <div id="dis_graph" class="card-body">
+        <canvas id="myChart"></canvas>
+      </div>
+      <br /><br />
+      <div id="dis_graph_2" class="card-body">
+        <canvas id="myChart2"></canvas>
+      </div>
+      <div id="dis_graph_3" class="card-body">
+        <canvas id="myChart3"></canvas>
+      </div>
+      <div id="dis_graph_4" class="card-body">
+        <canvas id="myChart4"></canvas>
+      </div>
+    </div>
+
+    <div id="pie_req" class="card-body" style=" display: none">
+      <canvas id="pie-chart"></canvas>
+    </div>
+
+    <div id="full_admin" class="container-contact100">
+      <div class="wrap-contact100">
+        <form id="addbook" class="contact100-form validate-form">
+          <span class="contact100-form-title">
+            Add Book Details
+          </span>
+
+          <div
+            class="wrap-input100 validate-input"
+            data-validate="Name is required"
+          >
+            <span class="label-input100">Book Name</span>
+            <input
+              id="book"
+              class="input100"
+              type="text"
+              name="name"
+              placeholder="Enter Book Name"
+            />
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Author Name</span>
+            <input
+              id="author"
+              class="input100"
+              type="text"
+              name="email"
+              placeholder="Enter Author's Name"
+            />
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 input100-select">
+            <span class="label-input100">Rating</span>
+            <div>
+              <select id="rating" class="selection-2" name="budget">
+                <option>Average Rating</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Books Count</span>
+            <input
+              id="count"
+              class="input100"
+              type="text"
+              name="email"
+              placeholder="Enter Number of Books Available"
+            />
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 input100-select">
+            <span class="label-input100">Genre / Category</span>
+            <div>
+              <select id="genre" class="selection-2" name="service">
+                <option>Choose Genre</option>
+                <option>comics</option>
+                <option>self help</option>
+                <option>fiction</option>
+                <option>fantasy</option>
+                <option>mystery</option>
+                <option>business</option>
+                <option>motivation</option>
+                <option>horror</option>
+                <option>education</option>
+                <option>science</option>
+                <option>philosophy</option>
+                <option>music</option>
+                <option>religion</option>
+                <option>suspense</option>
+                <option>literature</option>
+                <option>politics</option>
+                <option>art</option>
+                <option>travel</option>
+                <option>family</option>
+                <option>history</option>
+              </select>
+            </div>
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">RFID Tag No</span>
+            <input
+              id="rfid"
+              class="input100"
+              type="text"
+              name="email"
+              placeholder="AA:BB:CC:DD:EE"
+            />
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">ISBN No</span>
+            <input
+              id="isbn"
+              class="input100"
+              type="text"
+              name="email"
+              placeholder="Enter ISBN No."
+            />
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 input100-select">
+            <span class="label-input100">Language Code</span>
+            <div>
+              <select id="lang" class="selection-2" name="language">
+                <option>Language Code</option>
+                <option>English-US</option>
+                <option>English-UK</option>
+                <option>Hindi</option>
+                <option>Marathi</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Publication Year</span>
+            <input
+              id="year"
+              class="input100"
+              type="text"
+              name="email"
+              placeholder="Enter Publication Year"
+            />
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 input100-select">
+            <span class="label-input100">Shelf No</span>
+            <div>
+              <select id="shelf" class="selection-2" name="shelf">
+                <option>Shelf No</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="container-contact100-form-btn">
+            <div class="wrap-contact100-form-btn">
+              <div class="contact100-form-bgbtn"></div>
+              <button class="contact100-form-btn">
+                <span>
+                  Submit
+                  <i
+                    class="fa fa-long-arrow-right m-l-7"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div class="container-contact100-form-btn">
+          <div class="wrap-contact100-form-btn">
+            <div class="contact100-form-bgbtn"></div>
+            <button class="contact100-form-btn" onclick="requested()">
+              <span>
+                See Requested Books
+                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="container-contact100-form-btn">
+          <div class="wrap-contact100-form-btn">
+            <div class="contact100-form-bgbtn"></div>
+            <a href="online_monitor.html">
+              <button
+                id="monitor_students"
+                class="contact100-form-btn">
+                <span>
+                  Real Time Student Monitoring
+                  <i
+                    class="fa fa-long-arrow-right m-l-7"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <div class="container-contact100-form-btn">
+          <div class="wrap-contact100-form-btn">
+            <div class="contact100-form-bgbtn"></div>
+            <button
+              id="graph"
+              class="contact100-form-btn"
+              onclick="viusalize()"
+            >
+              <span>
+                Get Insights
+                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="container-contact100-form-btn">
+          <div class="wrap-contact100-form-btn">
+            <div class="contact100-form-bgbtn"></div>
+            <a
+              href="https://console.firebase.google.com"
+              class="contact100-form-btn"
+            >
+              <span>
+                Go To FireBase Console
+                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script>
+      $(".selection-2").select2({
+        minimumResultsForSearch: 20,
+        dropdownParent: $("#dropDownSelect1")
+      });
+    </script>
+    <!--===============================================================================================-->
+    <script src="vendor/daterangepicker/moment.min.js"></script>
+    <script src="vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/book_add.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-23581568-13");
+    </script>
+  </body>
+</html>
