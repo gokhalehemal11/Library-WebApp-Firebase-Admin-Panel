@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Real Time Student Monitoring</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/bootstrap/css/bootstrap.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="fonts/iconic/css/material-design-iconic-font.min.css"
+    />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css" />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/css-hamburgers/hamburgers.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/animsition/css/animsition.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/select2/select2.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/daterangepicker/daterangepicker.css"
+    />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <!--===============================================================================================-->
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+      var config = {
+        apiKey: "AIzaSyC5KYHGWCDaEL3W1o-Uk3Jt4vJTTvBulk8",
+        authDomain: "btapp-2a08c.firebaseapp.com",
+        databaseURL: "https://btapp-2a08c.firebaseio.com",
+        projectId: "btapp-2a08c",
+        storageBucket: "btapp-2a08c.appspot.com",
+        messagingSenderId: "202689453275"
+      };
+      firebase.initializeApp(config);
+    </script>
+  </head>
+  <body>
+    <canvas id="myChart"></canvas>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    <script>
+      
+      var omc=[];
+      var tot=0;
+      
+      var con = firebase.database();
+  con
+    .ref("real_time_student_monitoring")
+    .once("value")
+    .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        console.log(childSnapshot.key);
+        omc.push(childSnapshot.key);
+        tot=omc.length;
+        console.log(childSnapshot.val()["id"]);
+      });
+    });
+      
+      var ctx = document.getElementById("myChart").getContext("2d");
+var prev_tot=tot;
+      
+  var data = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [{
+      label: "Real Time Student Monitoring",
+      fillColor: "rgba(151,187,205,0.2)",
+      strokeColor: "rgba(151,187,205,1)",
+      pointColor: "rgba(151,187,205,1)",
+      pointStrokeColor: "#fff",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(151,187,205,1)",
+      data: [prev_tot,tot]
+    }]
+  };
+  var options = {
+    animation: false,
+    //Boolean - If we want to override with a hard coded scale
+    scaleOverride: true,
+    //** Required if scaleOverride is true **
+    //Number - The number of steps in a hard coded scale
+    scaleSteps: 10,
+    //Number - The value jump in the hard coded scale
+    scaleStepWidth: 10,
+    //Number - The scale starting value
+    scaleStartValue: 0
+  };
+
+  var myLineChart = new Chart(ctx , {
+    type: "line",
+    data: data,
+    options: options
+});;
+
+  setInterval(function() {
+    setData(data.datasets[0].data);
+    setLabels(data.labels);
+
+    var myLineChart = new Chart(ctx , {
+    type: "line",
+    data: data,
+    options: options
+});
+  }, 2000);
+
+  function setLabels(labels) {
+    var nextMonthIndex = months.indexOf(labels[labels.length - 1]) + 1;
+    var nextMonthName = months[nextMonthIndex] != undefined ? months[nextMonthIndex] : "January";
+    labels.push(nextMonthName);
+    labels.shift();
+  }
+
+  function setData(data) {
+    data.push(Math.floor(Math.random() * 100) + 1);
+    data.shift();
+  }
+  
+  function convertMonthNameToNumber(monthName) {
+    var myDate = new Date(monthName + " 1, 2016");
+    var monthDigit = myDate.getMonth();
+    return isNaN(monthDigit) ? 0 : (monthDigit + 1);
+  }
+  
+  var months = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+    </script>
+  </body>
+</html>
