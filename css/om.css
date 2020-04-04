@@ -4,6 +4,15 @@
   margin: 1em auto;
 }
 
+
+.center {
+  margin: auto;
+  width: 30%;
+  border: 3px solid #73AD21;
+  padding: 10px;
+}
+
+
 #container {
   height: 400px;
 }

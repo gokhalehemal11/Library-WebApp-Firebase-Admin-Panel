@@ -2,6 +2,8 @@ var tot = 0;
 
 function get_count() {
   var omc = [];
+  var omc_ids = [];
+  var sids = document.getElementById("sids");
 
   var con = firebase.database();
   con
@@ -11,14 +13,84 @@ function get_count() {
       snapshot.forEach(function(childSnapshot) {
         //console.log(childSnapshot.key);
         omc.push(childSnapshot.key);
+        omc_ids.push(childSnapshot.val()["id"]);
         //console.log(childSnapshot.val()["id"]);
+        sids.innerHTML = "<ul><li>" + omc_ids.join("</li><li>");
+        +"</li></ul>";
       });
       tot = omc.length;
-      console.log(tot);
+      //console.log(tot);
     });
 
-  console.log(tot);
+  //console.log(tot);
   return tot;
+}
+
+function get_student_data_from_day_and_time() {
+  //console.log("hi there");
+
+  var mytime = document.getElementById("myTime").value;
+  var mydate = document.getElementById("myDate").value;
+  var stud_ids = [];
+  //console.log(mytime);
+  //console.log(mydate);
+
+  var con = firebase.database();
+  con
+    .ref("entry_exit_data")
+    .once("value")
+    .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        //console.log(childSnapshot.val()["day"]);
+        //console.log(childSnapshot.val()["id"]);
+        //console.log(childSnapshot.val()["in_time"]);
+        //console.log(childSnapshot.val()["out_time"]);
+        if (mydate == childSnapshot.val()["day"]) {
+          if (mytime.toString() == "7 AM - 10 AM") {
+            if (
+              childSnapshot.val()["in_time"] >= "07:00:00" &&
+              childSnapshot.val()["in_time"] < "10:00:00"
+            ) {
+              stud_ids.push(childSnapshot.val()["id"]);
+            }
+          } else if (mytime.toString() == "10 AM - 1 PM") {
+            if (
+              childSnapshot.val()["in_time"] >= "10:00:00" &&
+              childSnapshot.val()["in_time"] < "13:00:00"
+            ) {
+              stud_ids.push(childSnapshot.val()["id"]);
+            }
+          } else if (mytime.toString() == "1 PM - 4 PM") {
+            if (
+              childSnapshot.val()["in_time"] >= "13:00:00" &&
+              childSnapshot.val()["in_time"] < "16:00:00"
+            ) {
+              stud_ids.push(childSnapshot.val()["id"]);
+            }
+          } else if (mytime.toString() == "4 PM - 7 PM") {
+            if (
+              childSnapshot.val()["in_time"] >= "16:00:00" &&
+              childSnapshot.val()["in_time"] < "19:00:00"
+            ) {
+              stud_ids.push(childSnapshot.val()["id"]);
+            }
+          } else if (mytime.toString() == "7 PM - 10 PM") {
+            if (
+              childSnapshot.val()["in_time"] >= "19:00:00" &&
+              childSnapshot.val()["in_time"] < "22:00:00"
+            ) {
+              stud_ids.push(childSnapshot.val()["id"]);
+            }
+          }
+        }
+      });
+    if(stud_ids.length > 0){
+      alert(stud_ids);
+    }
+    else{
+      alert("No Data Available");
+    }
+    });
 }
 
 Highcharts.chart("container", {
