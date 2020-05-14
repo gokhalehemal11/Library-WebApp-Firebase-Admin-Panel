@@ -21,9 +21,27 @@
       <div id="container"></div>
       <p class="highcharts-description">
         Chart showing total number of students present in the library in real
-        time.
+        time and Live Student IDs.
       </p>
     </figure>
+    <div id="sids" class="center"></div>
+    <div style="margin:auto; width:50%; padding:10px;">
+      <h4>
+        Get Data of Students
+      </h4>
+      <input type="date" id="myDate" />
+      <select id="myTime">
+        <option>Choose Time</option>
+        <option>7 AM - 10 AM</option>
+        <option>10 AM - 1 PM</option>
+        <option>1 PM - 4 PM</option>
+        <option>4 PM - 7 PM</option>
+        <option>7 PM - 10 PM</option>
+      </select>
+      <button id="btn_data" onclick="get_student_data_from_day_and_time()">
+        Get Data
+      </button>
+    </div>
     <script src="js/om.js"></script>
   </body>
 </html>
